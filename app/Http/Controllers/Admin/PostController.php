@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\AdminModels\Post;
 
 class PostController extends Controller
 {
@@ -16,9 +17,28 @@ class PostController extends Controller
     }
 
     public function store (Request $request) {
-
+      $request->validate ([
+        'title' => 'required|unique:posts|max:255',
+        'desc' => 'required',
+      ]);
+      $allReq = $request->all();
+      $arr = []; //массив для добавления файлов
+      if($request->file('img')) {
+          foreach ($allReq['img'] as $image) {
+              //сохранение файлов на сервере и присвоение им уникального имени
+              $filename = $image->store('images');
+              //сохрание файлов в массиве
+              $arr[] = $filename;
+          }
+      }
+      //преобразование массива файлов в строку для сохраннения в БД
+      $images = implode(' ', $arr);
+      //передача данных в столбец "img"
+      $allReq['img'] = $images;
+      //сохранение данных в БД
+      Post::create($allReq);
+      return redirect('admin');
     }
-
 
     /**
      * Display the specified resource.
