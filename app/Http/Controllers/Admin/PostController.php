@@ -9,11 +9,11 @@ use App\AdminModels\Post;
 class PostController extends Controller
 {
     public function index () {
-        return view('admin/post/index');
+        return view('admin.post.index');
     }
 
     public function create () {
-        return view('admin/post/create');
+        return view('admin.post.create');
     }
 
     public function store (Request $request) {
@@ -21,11 +21,11 @@ class PostController extends Controller
         'title' => 'required|unique:posts|max:255',
         'desc' => 'required',
       ]);
-      $allReq = $request->all();
+      $allData = $request->all();
       $arr = []; //массив для добавления файлов
       if($request->file('img')) {
-          foreach ($allReq['img'] as $image) {
-              //сохранение файлов на сервере и присвоение им уникального имени
+          foreach ($allData['img'] as $image) {
+              //сохранение файлов в папке на сервере /storage/images и присвоение им уникального имени
               $filename = $image->store('images');
               //сохрание файлов в массиве
               $arr[] = $filename;
@@ -36,7 +36,8 @@ class PostController extends Controller
       //передача данных в столбец "img"
       $allReq['img'] = $images;
       //сохранение данных в БД
-      Post::create($allReq);
+      Post::create($allData);
+      //редирект на индексную страницу
       return redirect('admin');
     }
 
