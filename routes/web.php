@@ -28,7 +28,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::post('/admin/post/store', 'PostController@store');
     Route::get('/admin/post/{id}','PostController@show');
     Route::get('/admin/post/{id}/edit','PostController@edit');
-    Route::put('/admin/post/{id}', 'PostController@update');
+    Route::patch('/admin/post/{id}', 'PostController@update');
     Route::delete('/admin/post/{id}','PostController@destroy');
     //Category CRUD routes
     Route::get('/admin/category', 'CategoryController@index');
@@ -38,5 +38,13 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::get('/admin/category/{id}/edit','CategoryController@edit');
     Route::patch('/admin/category/{id}', 'CategoryController@update');
     Route::delete('/admin/category/{id}','CategoryController@destroy');
+    //Tag CRUD routes
+    Route::get('/admin/tag', 'TagController@index');
+    Route::get('/admin/tag/create', 'TagController@create');
+    Route::post('/admin/tag/store', 'TagController@store');
+    Route::get('/admin/tag/{id}','TagController@show');
+    Route::get('/admin/tag/{id}/edit','TagController@edit');
+    Route::patch('/admin/tag/{id}', 'TagController@update');
+    Route::delete('/admin/tag/{id}','TagController@destroy');
 
 });

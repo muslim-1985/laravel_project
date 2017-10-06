@@ -16,17 +16,18 @@
                 <div class="col-md-3">
                     {{ Form::label('tags', 'Tags:') }}
                     <select class="js-example-basic-multiple" name="tags[]" multiple="multiple" style="width: 100%;">
-                        <option value="AL">Alabama</option>
-                        ...
-                        <option value="WY">Wyoming</option>
+                        @foreach($tags as $tag)
+                            <option id="tag_id" value="{{$tag->id}}">{{ $tag->title }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
 
-                    {{ Form::label('category_id', 'Category:') }}
-                    <select class="form-control" name="category_id">
-                        <option value="Al">Alabama</option>
-
+                    {{ Form::label('cat_id', 'Category:') }}
+                    <select class="form-control" name="cat_id">
+                        @foreach($categories as $cat)
+                            <option id="cat_id" value="{{$cat->id}}" selected="selected">{{ $cat->title }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">

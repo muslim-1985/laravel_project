@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AdminModels\Category;
+use App\AdminModels\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\AdminModels\Post;
@@ -9,11 +11,21 @@ use App\AdminModels\Post;
 class PostController extends Controller
 {
     public function index () {
-        return view('admin.post.index');
+        //жадная загрузка
+        $posts = Post::with('category')->get();
+        //вывод изображений из БД и преобразование в массив
+        foreach ($posts as $post)
+        {
+           $images = explode(' ', $post->img);
+        }
+
+        return view('admin.post.index', compact('posts', 'images'));
     }
 
     public function create () {
-        return view('admin.post.create');
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('admin.post.create',compact('categories','tags'));
     }
 
     public function store (Request $request) {
@@ -21,26 +33,19 @@ class PostController extends Controller
         'title' => 'required|unique:posts|max:255',
         'desc' => 'required',
       ]);
-      $allData = $request->all();
-      $arr = []; //массив для добавления файлов
-      if($request->file('img')) {
-          foreach ($allData['img'] as $image) {
-              //сохранение файлов в папке на сервере /storage/images и присвоение им уникального имени
-              $filename = $image->store('images');
-              //сохрание файлов в массиве
-              $arr[] = $filename;
-          }
-      }
-      //преобразование массива файлов в строку для сохраннения в БД
-      $images = implode(' ', $arr);
-      //передача данных в столбец "img"
-      $allReq['img'] = $images;
+
       //сохранение данных в БД
-      Post::create($allData);
+      $post = Post::create($request->all());
+        $this->syncTags($post, $request->input('tags'));
       //редирект на индексную страницу
       return redirect('admin');
+       //return dump($request);
     }
-
+    //функция записи данных id полей из массива request в промежуточную таблицу post_tags
+    private function syncTags (Post $post, array $tags)
+    {
+        $post->tags()->sync($tags);
+    }
     /**
      * Display the specified resource.
      *
@@ -49,7 +54,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return view('admin.post.show')->withPost($post);
     }
 
     /**
@@ -60,7 +66,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('admin.post.edit')->withPost($post);
     }
 
     /**
@@ -72,7 +79,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate ([
+            'title' => 'required|unique:posts|max:255',
+            'desc' => 'required',
+        ]);
+        Post::find($id)->update($request->all());
+        return redirect('admin');
     }
 
     /**
@@ -83,6 +95,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return redirect('admin');
     }
 }
