@@ -36,7 +36,9 @@ class PostController extends Controller
 
       //сохранение данных в БД
       $post = Post::create($request->all());
-        $this->syncTags($post, $request->input('tags'));
+      if($request->input('tags')) {
+          $this->syncTags($post, $request->input('tags'));
+      }
       //редирект на индексную страницу
       return redirect('admin');
        //return dump($request);
@@ -44,7 +46,8 @@ class PostController extends Controller
     //функция записи данных id полей из массива request в промежуточную таблицу post_tags
     private function syncTags (Post $post, array $tags)
     {
-        $post->tags()->sync($tags);
+        $post->tags()->sync($tags, false);
+
     }
     /**
      * Display the specified resource.
