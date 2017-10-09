@@ -31,7 +31,11 @@
                                         @endif
                                     </td>
                                     <td>{{ $post->desc }}</td>
-                                    <td>{{ $post->tag }}</td>
+                                    <td>
+                                        @foreach($post->tags as $tag)
+                                            {{ $tag->title }}
+                                        @endforeach
+                                    </td>
                                     <td>{{ $post->slug }}</td>
                                     <td>
                                         @foreach($images as $image)

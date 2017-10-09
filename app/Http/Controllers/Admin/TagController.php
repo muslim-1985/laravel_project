@@ -77,7 +77,9 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        Tag::find($id)->delete();
+        $tag = Tag::find($id);
+        $tag->posts()->detach();
+        $tag->delete();
         return redirect('admin/tag');
     }
 }

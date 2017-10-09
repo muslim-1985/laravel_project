@@ -58,7 +58,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        return view('admin.post.show')->withPost($post);
+        $images = explode(' ', $post->img);
+        return view('admin.post.show',compact('images','post'));
     }
 
     /**
@@ -70,7 +71,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('admin.post.edit')->withPost($post);
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('admin.post.edit', compact('post','categories', 'tags'));
     }
 
     /**
@@ -86,7 +89,17 @@ class PostController extends Controller
             'title' => 'required|unique:posts|max:255',
             'desc' => 'required',
         ]);
-        Post::find($id)->update($request->all());
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->desc = $request->input('desc');
+        $post->slug = $request->input('slug');
+        $post->content = $request->input('content');
+        $post->cat_id = $request->input('cat_id');
+        $post->img = $request->img;
+        $post->save();
+        $post->tags()->sync($request->tags, false);
+
+
         return redirect('admin');
     }
 
@@ -98,7 +111,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Post::find($id)->delete();
+        $post = Post::find($id);
+        $post->tags()->detach();
+        $post->delete();
         return redirect('admin');
     }
 }
