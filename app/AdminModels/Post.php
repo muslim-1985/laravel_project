@@ -17,10 +17,11 @@ class Post extends Model
             $arr=[];
             if(isset($model->img)) {
                 foreach ($model->img as $image) {
-                    //сохранение файлов в папке на сервере /storage/app/images и присвоение им уникального имени
-                    $filename = \Storage::putFile('images', $image);
+                    //сохранение файлов в папке на сервере public/images и присвоение им уникального имени
+                    $imageName = time().'.'.$image->getClientOriginalName();
+                    $image->move(public_path('images'), $imageName);
                     //сохрание файлов в массиве
-                    $arr[] = $filename;
+                    $arr[] = $imageName;
                 }
             }
             $images = implode(' ', $arr);
@@ -34,7 +35,7 @@ class Post extends Model
             //проходимся циклом по созданному массиву и удаляем все изображения
             // привязанные к модели из папки на сервере
             foreach ($img as $image) {
-                \Storage::delete('/', $image);
+                @unlink(public_path("images/$image"));
             }
 
         });
@@ -43,7 +44,6 @@ class Post extends Model
             $arr=[];
             if(isset($model->img)) {
                 foreach ($model->img as $image) {
-                    //сохранение файлов в папке на сервере /storage/app/images и присвоение им уникального имени
 
                     //сохрание файлов в массиве
                     $arr[] = $image;

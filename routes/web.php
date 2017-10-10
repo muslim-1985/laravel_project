@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 
 
@@ -47,4 +47,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::patch('/admin/tag/{id}', 'TagController@update');
     Route::delete('/admin/tag/{id}','TagController@destroy');
 
+});
+//Attacment
+Route::namespace('Attachment')->group(function (){
+   Route::get('/','SiteController@index');
 });

@@ -38,8 +38,8 @@
                                     </td>
                                     <td>{{ $post->slug }}</td>
                                     <td>
-                                        @foreach($images as $image)
-                                            <img src="{{asset("/storage/app/$image" )}}" alt="No image">
+                                        @foreach(explode(' ', $post->img) as $image)
+                                            <img src="{{asset("images/$image" )}}" alt="No image" style="width: 50px; height: 50px;">
                                         @endforeach
                                     </td>
                                     <td>{{ date('M j,Y', strtotime($post->created_at ))}}</td>

@@ -13,13 +13,8 @@ class PostController extends Controller
     public function index () {
         //жадная загрузка
         $posts = Post::with('category')->get();
-        //вывод изображений из БД и преобразование в массив
-        foreach ($posts as $post)
-        {
-           $images = explode(' ', $post->img);
-        }
 
-        return view('admin.post.index', compact('posts', 'images'));
+        return view('admin.post.index', compact('posts'));
     }
 
     public function create () {

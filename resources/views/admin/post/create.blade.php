@@ -11,8 +11,8 @@
                 {{ Form::textarea('desc', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '250')) }}
 
 
-                {{ Form::label('contant', 'Contant') }}
-                {{ Form::textarea('contant', null, array('class' => 'form-control', 'maxlength' => '250')) }}
+                {{ Form::label('content', 'Content') }}
+                {{ Form::textarea('content', null, array('class' => 'form-control', 'maxlength' => '250')) }}
                 <div class="col-md-3">
                     {{ Form::label('tags', 'Tags:') }}
                     <select class="js-example-basic-multiple" name="tags[]" multiple="multiple" style="width: 100%;">
