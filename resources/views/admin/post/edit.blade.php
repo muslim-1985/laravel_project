@@ -6,7 +6,7 @@
                 <h1>View Category</h1>
             </div>
             <div class="row">
-                {!! Form::model($post,['method' => 'PATCH', 'action' => ['Admin\PostController@update',$post->id]]) !!}
+                {!! Form::model($post,['method' => 'PATCH', 'action' => ['Admin\PostController@update',$post->id],'files' => true]) !!}
                 <div class="col-md-8">
                     {{ Form::label('title', 'Заголовок') }}
                     {{ Form::text('title', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '150')) }}
@@ -20,6 +20,9 @@
                     <div class="col-md-2">
                         {{ Form::label('tags', 'Tags:') }}
                         <select class="js-example-basic-multiple" name="tags[]" multiple="multiple" style="width: 100%;">
+                            @foreach($post->tags as $tag)
+                                <option value="{{ $tag->id }}"selected>{{ $tag->title }}</option>
+                            @endforeach
                             @foreach($tags as $tag)
                                 <option id="tag_id" value="{{$tag->id}}">{{ $tag->title }}</option>
                             @endforeach
@@ -29,8 +32,9 @@
 
                         {{ Form::label('cat_id', 'Category:') }}
                         <select class="form-control" name="cat_id">
+                            <option value=" " selected></option>
                             @foreach($categories as $cat)
-                                <option id="cat_id" value="{{$cat->id}}" selected="selected">{{ $cat->title }}</option>
+                                <option id="cat_id" value="{{$cat->id}}">{{ $cat->title }}</option>
                             @endforeach
                         </select>
                     </div>

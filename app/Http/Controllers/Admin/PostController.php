@@ -36,7 +36,6 @@ class PostController extends Controller
       }
       //редирект на индексную страницу
       return redirect('admin');
-       //return dump($request);
     }
     //функция записи данных id полей из массива request в промежуточную таблицу post_tags
     private function syncTags (Post $post, array $tags)
@@ -81,8 +80,8 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate ([
-            'title' => 'required|unique:posts|max:255',
-            'desc' => 'required',
+            'title' => 'unique:posts|max:255',
+            'desc' => 'max:255',
         ]);
         $post = Post::find($id);
         $post->title = $request->input('title');
@@ -90,11 +89,30 @@ class PostController extends Controller
         $post->slug = $request->input('slug');
         $post->content = $request->input('content');
         $post->cat_id = $request->input('cat_id');
-        $post->img = $request->img;
+
+        //удаляем старые теги
+        if($post->tags)
+        {
+            $post->tags()->detach();
+            $post->tags()->delete();
+        }
+        //добавляем новые
+        if($request->input('tags'))
+        {
+            $this->syncTags($post, $request->input('tags'));
+        }
+        $arr=[];
+        if($request->file('img'))
+        {
+            foreach ($request->file('img') as $image)
+            {
+                $imageName = $image->store('image');
+                $arr[] = $imageName;
+            }
+        }
+        $images = implode(' ', $arr);
+        $post->img = $images;
         $post->save();
-        $post->tags()->sync($request->tags, false);
-
-
         return redirect('admin');
     }
 

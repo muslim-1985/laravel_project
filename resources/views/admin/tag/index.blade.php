@@ -19,7 +19,10 @@
                             @foreach($tags as $tag)
                                 <tr>
                                     <th>{{ $tag->id }}</th>
-                                    <td>{{ $tag->title }}</td>
+                                    <td>
+                                        {{ $tag->title }}
+                                        <small> post({{ $tag->posts()->count() }})</small>
+                                    </td>
                                     <td>{{ date('M j,Y', strtotime($tag->created_at ))}}</td>
                                     <td>
                                         <a href="{{ action('Admin\TagController@edit', $tag->id) }}" class="btn btn-default btn-sm">Edit</a>

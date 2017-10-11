@@ -17,9 +17,10 @@ class Post extends Model
             $arr=[];
             if(isset($model->img)) {
                 foreach ($model->img as $image) {
-                    //сохранение файлов в папке на сервере public/images и присвоение им уникального имени
-                    $imageName = time().'.'.$image->getClientOriginalName();
-                    $image->move(public_path('images'), $imageName);
+                    //сохранение файлов в папке на сервере public/images(создаем папку) и присвоение им уникального имени
+                    //перед сохранением обязательно меняем стандартный путь функции store() в файле config/filesystems.php
+                    //'root'=>public_path('images')
+                    $imageName = $image->store('image');
                     //сохрание файлов в массиве
                     $arr[] = $imageName;
                 }
@@ -40,18 +41,7 @@ class Post extends Model
 
         });
         //триггер обновления
-        self::updating(function($model){
-            $arr=[];
-            if(isset($model->img)) {
-                foreach ($model->img as $image) {
 
-                    //сохрание файлов в массиве
-                    $arr[] = $image;
-                }
-            }
-            $images = implode(' ', $arr);
-            $model->img = $images;
-        });
     }
 
     public function category ()

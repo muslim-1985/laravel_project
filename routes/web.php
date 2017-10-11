@@ -28,7 +28,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::post('/admin/post/store', 'PostController@store');
     Route::get('/admin/post/{id}','PostController@show');
     Route::get('/admin/post/{id}/edit','PostController@edit');
-    Route::patch('/admin/post/{id}', 'PostController@update');
+    Route::patch('/admin/post/{id}', 'PostController@update')->name('update');
     Route::delete('/admin/post/{id}','PostController@destroy');
     //Category CRUD routes
     Route::get('/admin/category', 'CategoryController@index');
