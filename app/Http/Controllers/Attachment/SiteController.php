@@ -9,12 +9,18 @@ use App\Http\Controllers\Controller;
 
 class SiteController extends Controller
 {
+
     public function Index ()
     {
-        $post = Post::all();
+        $posts = Post::all();
         $head = Category::where('slug','head')->first();
 
-        return view('attachment.index', compact('post','head'));
+        return view('attachment.index', compact('posts','head'));
+    }
+    public function PostShow ($id)
+    {
+        $post = Post::find($id);
+        return view('attachment.post',compact('post'));
     }
 
 }

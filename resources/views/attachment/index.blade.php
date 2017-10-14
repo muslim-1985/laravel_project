@@ -217,11 +217,9 @@
                 <div class="col-lg-3">
                     <h4>Latest Posts</h4>
                     <div class="hline"></div>
-                    <p><a href="single-post.html">Our new site is live now.</a></p>
-                    <p><a href="single-post.html">Retina ready is not an option.</a></p>
-                    <p><a href="single-post.html">Bootstrap 3 framework is the best.</a></p>
-                    <p><a href="single-post.html">You need this theme, buy it now.</a></p>
-                    <p><a href="single-post.html">This theme is what you need.</a></p>
+                    @foreach($posts as $post)
+                        <p><a href="{{ action('Attachment\SiteController@PostShow', $post->id) }}">{{ $post->title }}</a></p>
+                    @endforeach
                 </div>
 
             </div><! --/row -->

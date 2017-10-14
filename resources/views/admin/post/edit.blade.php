@@ -6,17 +6,18 @@
                 <h1>View Category</h1>
             </div>
             <div class="row">
+                {{-- не забываем добавлять атрибут для загрузки фалов "multipart/formdata ('files'=> true)" --}}
                 {!! Form::model($post,['method' => 'PATCH', 'action' => ['Admin\PostController@update',$post->id],'files' => true]) !!}
                 <div class="col-md-8">
                     {{ Form::label('title', 'Заголовок') }}
-                    {{ Form::text('title', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '150')) }}
+                    {{ Form::text('title', null, array('class' => 'form-control', 'maxlength' => '150')) }}
 
                     {{ Form::label('desc', 'Description') }}
-                    {{ Form::textarea('desc', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '250')) }}
+                    {{ Form::textarea('desc', null, array('class' => 'form-control', 'maxlength' => '250')) }}
 
 
                     {{ Form::label('content', 'Content') }}
-                    {{ Form::textarea('content', null, array('class' => 'form-control', 'maxlength' => '250')) }}
+                    {{ Form::textarea('content', null, array('class' => 'form-control')) }}
                     <div class="col-md-2">
                         {{ Form::label('tags', 'Tags:') }}
                         <select class="js-example-basic-multiple" name="tags[]" multiple="multiple" style="width: 100%;">
@@ -40,7 +41,7 @@
                     </div>
                     <div class="col-md-2">
                         {{ Form::label('slug', 'Slug:') }}
-                        {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '100')) }}
+                        {{ Form::text('slug', null, array('class' => 'form-control', 'maxlength' => '100')) }}
                     </div>
                     <div class="col-md-2">
                         {{ Form::label('img', 'Images:') }}

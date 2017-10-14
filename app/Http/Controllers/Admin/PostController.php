@@ -101,6 +101,9 @@ class PostController extends Controller
         {
             $this->syncTags($post, $request->input('tags'));
         }
+        //сохранение обновленных файлов в папке на сервере public/images(создаем папку) и присвоение им уникального имени
+        //перед сохранением обязательно меняем стандартный путь функции store() в файле config/filesystems.php
+        //'root'=>public_path('images')
         $arr=[];
         if($request->file('img'))
         {
@@ -110,8 +113,10 @@ class PostController extends Controller
                 $arr[] = $imageName;
             }
         }
+        //преобразование обновленных файлов в строку
         $images = implode(' ', $arr);
         $post->img = $images;
+        //сохранение в БД
         $post->save();
         return redirect('admin');
     }

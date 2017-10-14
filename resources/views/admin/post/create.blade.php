@@ -3,6 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                {{-- не забываем добавлять атрибут для загрузки фалов "multipart/formdata ('files'=> true)" --}}
                 {!! Form::open(['url' => 'admin/post/store', 'files' => true]) !!}
                     {{ Form::label('title', 'Заголовок') }}
                     {{ Form::text('title', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '150')) }}
