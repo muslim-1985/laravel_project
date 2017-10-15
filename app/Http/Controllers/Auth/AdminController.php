@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
+    //перед тем как настраивать кастомный гард идем в config/auth.php и там добавляем гард (ориентируемся по комментариям)
     public function __construct()
     {
         $this->middleware('guest:admin')->except(['Logout']);
@@ -34,16 +35,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
     //разлогиниться
-    //настраиваем так же стандартный контроллер с 'web' гардом:LoginController
-    public function Logout (Request $request)
+    //незабываем настроить так же стандартный контроллер с 'web' гардом:LoginController и прописать root
+    public function Logout ()
     {
         \Auth::guard('admin')->logout();
-        $request->session()->flush();
-        $request->session()->regenerate();
 
         return redirect('/');
     }
-    //далее следует настроить midleweare
+    //далее следует настроить middleware
     // первый файл путь: App/Extentios/Handler.php
     //второй файл путь: App/Http/Middleware/RedirectAuthenticated.php
 }

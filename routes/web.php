@@ -20,7 +20,7 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+//бэкенд
 Route::namespace('Admin')->middleware('auth')->group(function () {
     //Post CRUD routes
     Route::get('/admin','PostController@index');
@@ -48,17 +48,19 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::delete('/admin/tag/{id}','TagController@destroy');
 
 });
-//Attacment
+//фронтенд
 Route::namespace('Attachment')->group(function (){
    Route::get('/','SiteController@index')->name('home.user');
    Route::get('/post/{id}','SiteController@PostShow')->name('post.single');
    Route::post('/comments/{post_id}', 'CommentController@Store')->name('comment.store');
 });
+//кастомная авторизация и аутентификация
 Route::namespace('Auth')->group(function ()
 {
+    //custom autentification
   Route::get('/user/login', 'AdminController@ShowLoginForm')->name('admin.login.dashboard');
   Route::post('/user/login','AdminController@Login')->name('admin.login.submit');
   Route::post('/user/logout', 'AdminController@Logout')->name('admin.logout');
-  //admin logout
+  //admin custom logout
   Route::post('/admin/logout','LoginController@UserLogout')->name('user.logout');
 });
