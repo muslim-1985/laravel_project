@@ -1,6 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            {{-- проверка аутентифицированного пользователя --}}
+            @if(Auth::guard('admin')->check())
             {!! Form::open(['route'=>['comment.store',$post->id]]) !!}
             {{ Form::label('title', 'Ваше имя') }}
             {{ Form::text('title', null, array('class' => 'form-control', 'required' => '')) }}
@@ -12,6 +14,10 @@
             </div>
 
 {!! Form::close() !!}
+                @else
+                <h1>комментарии могут оставлять только зарегестрированные пользователи</h1>
+                <p><a href="{{ action('Auth\AdminController@ShowLoginForm') }}">Войти</a></p>
+                @endif
 </div>
 </div>
 </div>

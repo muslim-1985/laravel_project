@@ -50,7 +50,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
 });
 //Attacment
 Route::namespace('Attachment')->group(function (){
-   Route::get('/','SiteController@index');
+   Route::get('/','SiteController@index')->name('home.user');
    Route::get('/post/{id}','SiteController@PostShow')->name('post.single');
    Route::post('/comments/{post_id}', 'CommentController@Store')->name('comment.store');
 });
@@ -58,4 +58,7 @@ Route::namespace('Auth')->group(function ()
 {
   Route::get('/user/login', 'AdminController@ShowLoginForm')->name('admin.login.dashboard');
   Route::post('/user/login','AdminController@Login')->name('admin.login.submit');
+  Route::post('/user/logout', 'AdminController@Logout')->name('admin.logout');
+  //admin logout
+  Route::post('/admin/logout','LoginController@UserLogout')->name('user.logout');
 });
