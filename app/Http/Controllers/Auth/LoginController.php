@@ -34,6 +34,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        //добавляем к промежуточному обработчику исключение функции разлогинивания UserLogout
         $this->middleware('guest')->except(['logout','UserLogout']);
     }
     //добавляем функцию logout и настраиваем роуты

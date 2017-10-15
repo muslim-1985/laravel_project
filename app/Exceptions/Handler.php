@@ -53,13 +53,18 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+
+
     //добаляем функцию перенаправления роутов
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        //если аутентификация будет проходить через json с токеном
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
+        //обычная аутентификация
         $guard = array_get($exception->guards(), 0);
+        //проверка гардов
         switch ($guard) {
             case 'admin':
                 $login = 'admin.login.dashboard';

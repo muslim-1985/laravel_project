@@ -35,9 +35,11 @@ class AdminController extends Controller
     }
     //разлогиниться
     //настраиваем так же стандартный контроллер с 'web' гардом:LoginController
-    public function Logout ()
+    public function Logout (Request $request)
     {
         \Auth::guard('admin')->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
 
         return redirect('/');
     }
