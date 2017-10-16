@@ -27,4 +27,8 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function comments ()
+    {
+        return $this->hasMany('App\AttachmentModels\Comment','admin_id');
+    }
 }

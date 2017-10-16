@@ -100,6 +100,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             @foreach($post->comments as $comment)
+                <p>{{ $comment->admins->name }}</p>
                 <strong>{{ $comment->title }}</strong>
                 <p>{{ $comment->content }}</p>
             @endforeach

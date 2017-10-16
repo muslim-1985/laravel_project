@@ -50,7 +50,7 @@
                         </li>
                         @else
                     <li><a href="{{ route('admin.login.dashboard') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li><a href="{{ route('admin.register') }}">Register</a></li>
                          @endif
             </ul>
         </div><!--/.nav-collapse -->

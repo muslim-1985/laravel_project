@@ -12,4 +12,8 @@ class Comment extends Model
     {
         return $this->belongsTo('App\AdminModels\Post','post_id');
     }
+    public function admins()
+    {
+        return $this->belongsTo('App\Admin','admin_id');
+    }
 }

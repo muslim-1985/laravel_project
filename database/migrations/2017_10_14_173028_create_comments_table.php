@@ -19,10 +19,12 @@ class CreateCommentsTable extends Migration
             $table->text('content');
             $table->boolean('approved');
             $table->integer('post_id')->unsigned();
+            $table->integer('admin_id')->unsigned();
             $table->timestamps();
         });
         Schema::table('comments', function ($table){
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });
     }
 

@@ -53,6 +53,12 @@ Route::namespace('Attachment')->group(function (){
    Route::get('/','SiteController@index')->name('home.user');
    Route::get('/post/{id}','SiteController@PostShow')->name('post.single');
    Route::post('/comments/{post_id}', 'CommentController@Store')->name('comment.store');
+    //comments backend
+    Route::get('/admin/comment','CommentController@Index')->name('admin.comment.index');
+    Route::get('/admin/comment/{id}','CommentController@show')->name('admin.comment.show');
+    Route::get('/admin/comment/{id}/edit','CommentController@edit')->name('admin.comment.edit');
+    Route::patch('/admin/comment/{id}','CommentController@update')->name('admin.comment.update');
+    Route::delete('/admin/comment/{id}','CommentController@destroy')->name('admin.destroy.comment');
 });
 //кастомная авторизация и аутентификация
 Route::namespace('Auth')->group(function ()
@@ -61,6 +67,11 @@ Route::namespace('Auth')->group(function ()
   Route::get('/user/login', 'AdminController@ShowLoginForm')->name('admin.login.dashboard');
   Route::post('/user/login','AdminController@Login')->name('admin.login.submit');
   Route::post('/user/logout', 'AdminController@Logout')->name('admin.logout');
+  Route::get('/user/register','RegisterAdminController@ShowRegisterForm')->name('admin.register');
+  Route::post('/user/register','RegisterAdminController@Register')->name('admin.register.submit');
+  //user backend
+  Route::get('/admin/user','RegisterAdminController@ShowUsers')->name('admin.show');
+  Route::delete('/admin/user/{id}','RegisterAdminController@destroy')->name('admin.destroy');
   //admin custom logout
   Route::post('/admin/logout','LoginController@UserLogout')->name('user.logout');
 });
