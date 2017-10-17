@@ -37,6 +37,6 @@ class RegisterAdminController extends Controller
     {
         $admin = Admin::find($id);
         $admin->delete();
-        return redirect('admin');
+        return redirect('admin/user');
     }
 }

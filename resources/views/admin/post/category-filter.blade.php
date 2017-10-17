@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>View Posts</h1>
+                    <h1>View Categories Posts</h1>
                     <a href="{{ action('Admin\PostController@create') }}" class="btn btn-default">Create Post</a>
                 </div>
                 <div class="row">
@@ -20,16 +20,12 @@
                             <th>created at</th>
                             </thead>
                             <tbody>
-                            @foreach($posts as $post)
+                            @foreach($category->posts as $post)
                                 <tr>
                                     <th>{{ $post->id }}</th>
                                     <td>{{ $post->title }}</td>
                                     <td>
-                                        @if(isset($post->category->title))
-                                            {{-- фильтрация категорий. Передаем айдишник категории методу контроллера PostController CategoryFilter --}}
-                                            <a href="{{ route('category.filter',$post->category->id) }}">{{ $post->category->title }}</a>
-                                            @else {{ "Без категории" }}
-                                        @endif
+                                        <strong>{{ $category->title }}</strong>
                                     </td>
                                     <td>{{ $post->desc }}</td>
                                     <td>
@@ -57,9 +53,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="img">
-
-                        </div>
                     </div>
                 </div>
             </div>

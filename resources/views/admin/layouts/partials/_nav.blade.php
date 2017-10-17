@@ -13,11 +13,23 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ action('Admin\PostController@index') }}">Posts</a></li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories filter <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Page 1-1</a></li>
-                        <li><a href="#">Page 1-2</a></li>
-                        <li><a href="#">Page 1-3</a></li>
+                        {{-- создаем в App/Providers/AppServiceProvider@boot() фукцию доступа к модели Category
+                             из всех шаблонов (чтобы не вызывать эту модель в каждом контроллере
+                             ведь навигационное меню у нас одно на все контроллеры
+                             и пришлось бы в каждом контроллере вызывать модель
+                             Categories и передевать ее в переменной навигационному меню
+                             для этого и существуют ServiceProviders и View::composer (передает виду нужную модель
+                             которая доступна везде) внутри функции boot() которая гарантирует
+                             загрузку СервисПровайдера после загрузки других сервисов
+                             Реализацию можно посмотреть пройдя по пути указанному выше.)
+                              и передаем ее там же переменной $categories и выводим все в шаблоне
+                         --}}
+                        {{-- фильтрация категорий. Передаем айдишник категории методу контроллера PostController CategoryFilter --}}
+                        @foreach($categories as $category)
+                            <li><a href="{{ route('category.filter',$category->id) }}">{{ $category->title }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
                 <li><a href="{{ action('Admin\TagController@index') }}">Tags</a></li>

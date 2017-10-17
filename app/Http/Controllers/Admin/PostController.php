@@ -121,6 +121,11 @@ class PostController extends Controller
         return redirect('admin');
     }
 
+    public function CategoryFilter($id)
+    {
+        $category = Category::find($id);
+        return view('admin.post.category-filter',compact('category'));
+    }
     /**
      * Remove the specified resource from storage.
      *

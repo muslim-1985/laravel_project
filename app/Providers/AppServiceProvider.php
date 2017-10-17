@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\AdminModels\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //вызываем функцию доступа ко всем категориям из любого места
+        \View::composer('admin.layouts.partials._nav', function ($view){
+
+            $view->with('categories', Category::all());
+        });
     }
 
     /**

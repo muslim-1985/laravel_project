@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>View Comments</h1>
+                <h1>View Authors</h1>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -17,12 +17,12 @@
                             <th>published</th>
                         </thead>
                         <tbody>
-                            @foreach($comments as $comment)
+                            @foreach($author->comments as $comment)
                                 <tr>
                                     <th>{{ $comment->id }}</th>
                                     <td>{{ $comment->title }}</td>
                                     <td>{{ $comment->content }}</td>
-                                    <td><a href="{{ route('comment.admin.filter', $comment->admins->id) }}">{{ $comment->admins->name }}</a></td>
+                                    <td>{{ $author->name }}</td>
                                     <td>{{ date('M j,Y', strtotime($comment->created_at ))}}</td>
                                     <td>
                                         @if($comment->approved == 1)

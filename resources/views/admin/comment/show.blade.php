@@ -8,6 +8,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <h4>id: {{ $comment->id }}</h4>
+                    <h4>Author: {{ $comment->admins->name }}</h4>
                     <h4>Name: {{ $comment->title }}</h4>
                     <p>Text: {{ $comment->content }}</p>
                 </div>

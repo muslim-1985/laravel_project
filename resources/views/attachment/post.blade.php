@@ -99,11 +99,13 @@
     </div><! --/row -->
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            @foreach($post->comments as $comment)
-                <p>{{ $comment->admins->name }}</p>
-                <strong>{{ $comment->title }}</strong>
-                <p>{{ $comment->content }}</p>
-            @endforeach
+                @foreach($post->comments as $comment)
+                    @if($comment->approved == 1)
+                        <p>{{ $comment->admins->name }}</p>
+                        <strong>{{ $comment->title }}</strong>
+                        <p>{{ $comment->content }}</p>
+                    @endif
+                @endforeach
         </div>
     </div>
 </div><! --/container -->

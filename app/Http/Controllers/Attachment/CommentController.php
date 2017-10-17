@@ -28,7 +28,7 @@ class CommentController extends Controller
         $comment = new Comment();
         $comment->title = $request->input('title');
         $comment->content = $request->input('content');
-        $comment->approved = true;
+        $comment->approved = $request->has('approved') ? true : false;
         //привязываем комментарий к текущему посту
         $comment->posts()->associate($post);
         //связываем текущего авторизированного пользователя (гард 'admin', не забываем) и получаем его id
@@ -37,7 +37,21 @@ class CommentController extends Controller
         \Session::flash('success','Комментарий успешно добавлен');
         return redirect()->route('post.single',$post_id);
     }
+    // публикация комментария
+    public function ApprovedComment (Request $request, $id)
+    {
+        $comment = Comment::find($id);
+        //проверяем чекбокс
+        $comment->approved = $request->has('approved') ? true : false;
+        $comment->update();
+        return redirect('admin/comment');
+    }
 
+    public function AuthorFilter($id)
+    {
+        $author = Admin::find($id);
+        return view('admin.comment.author-comment',compact('author'));
+    }
     /**
      * Display the specified resource.
      *
