@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>View Categories</h1>
+                <h1>View Tags</h1>
                 <a href="{{ action('Admin\TagController@create') }}" class="btn btn-default">Create Tag</a>
             </div>
             <div class="row">
@@ -20,7 +20,7 @@
                                 <tr>
                                     <th>{{ $tag->id }}</th>
                                     <td>
-                                        {{ $tag->title }}
+                                        <a href="{{ route('tag.filter',$tag->id) }}">{{ $tag->title }}</a>
                                         <small> post({{ $tag->posts()->count() }})</small>
                                     </td>
                                     <td>{{ date('M j,Y', strtotime($tag->created_at ))}}</td>

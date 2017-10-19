@@ -19,7 +19,7 @@
                             @foreach($categories as $cat)
                                 <tr>
                                     <th>{{ $cat->id }}</th>
-                                    <td>{{ $cat->title }}</td>
+                                    <td><a href="{{ route('category.filter',$cat->id) }}">{{ $cat->title }}</a></td>
                                     <td>{{ $cat->slug }}</td>
                                     <td>{{ date('M j,Y', strtotime($cat->created_at ))}}</td>
                                     <td>

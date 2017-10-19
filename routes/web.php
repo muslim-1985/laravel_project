@@ -48,6 +48,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::get('/admin/tag/{id}/edit','TagController@edit');
     Route::patch('/admin/tag/{id}', 'TagController@update');
     Route::delete('/admin/tag/{id}','TagController@destroy');
+    Route::get('/admin/post/tag/{id}','TagController@TagFilter')->name('tag.filter');
 
 });
 //фронтенд
@@ -55,6 +56,7 @@ Route::namespace('Attachment')->group(function (){
    Route::get('/','SiteController@index')->name('home.user');
    Route::get('/post/{id}','SiteController@PostShow')->name('post.single');
    Route::post('/comments/{post_id}', 'CommentController@Store')->name('comment.store');
+   Route::get('/portfolio/project/{id}','SiteController@SingleProject')->name('single.project');
     //comments backend
     Route::get('/admin/comment','CommentController@Index')->name('admin.comment.index');
     Route::get('/admin/comment/{id}','CommentController@show')->name('admin.comment.show');

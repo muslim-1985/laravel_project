@@ -130,3 +130,20 @@
         });
     })(jQuery);
 </script>
+<script>
+    $(".answer").each(function () {
+        $(this).click( function (event) {
+            event.preventDefault();
+            var target = $(event.target);
+            if(target.is(this)) {
+                target.next().slideToggle("slow");
+
+                //remove default "none" class slideToggle function
+
+                if($(this).css("display") === 'none'){
+                    $(this).removeAttr('style');
+                }
+            }
+        });
+    });
+</script>

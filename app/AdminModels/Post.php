@@ -16,7 +16,7 @@ class Post extends Model
         self::creating(function ($model){
             //объявление переменной с пустым массивом для сохранения в нем данных с названиями файлов
             $arr=[];
-            if(isset($model->img)) {
+            if($model->img) {
                 foreach ($model->img as $image) {
                     //сохранение файлов в папке на сервере public/images(создаем папку) и присвоение им уникального имени
                     //перед сохранением обязательно меняем стандартный путь функции store() в файле config/filesystems.php

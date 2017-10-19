@@ -11,8 +11,8 @@ use App\AdminModels\Post;
 class PostController extends Controller
 {
     public function index () {
-        //жадная загрузка
-        $posts = Post::with('category')->get();
+        //жадная загрузка и пагинация
+        $posts = Post::with('category')->paginate(5);
 
         return view('admin.post.index', compact('posts'));
     }
@@ -120,7 +120,7 @@ class PostController extends Controller
         $post->save();
         return redirect('admin');
     }
-
+    //фильтр постов по категориям
     public function CategoryFilter($id)
     {
         $category = Category::find($id);

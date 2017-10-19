@@ -10,10 +10,11 @@
 
         <! -- SINGLE POST -->
         <div class="col-lg-8">
-            <! -- Blog Post 1 -->
-            @foreach(explode(' ', $post->img) as $image)
-                <p><img src="{{asset("images/$image" )}}" class="img-responsive" alt="No image" style="width: 50px; height: 50px;"></p>
-            @endforeach
+            @if($post->img)
+                @foreach(explode(' ', $post->img) as $image)
+                    <p><img src="{{asset("images/$image" )}}" class="img-responsive" alt="No image" style="width: 50px; height: 50px;"></p>
+                @endforeach
+            @endif
             <a href="single-post.html"><h3 class="ctitle">{{ $post->title }}</h3></a>
             <p><csmall>Posted: {{ date('M j,Y', strtotime($post->created_at ))}}</csmall> | <csmall2>By: Admin - 3 Comments</csmall2></p>
             <p>{{ $post->content }}</p>
@@ -101,14 +102,25 @@
         <div class="col-md-8 col-md-offset-2">
                 @foreach($post->comments as $comment)
                     @if($comment->approved == 1)
-                        <p>{{ $comment->admins->name }}</p>
-                        <strong>{{ $comment->title }}</strong>
-                        <p>{{ $comment->content }}</p>
+                        <div class="comment" style="margin-top: 60px;">
+                            <p>{{ $comment->admins->name }}</p>
+                            <strong>{{ $comment->title }}</strong>
+                            <p>{{ $comment->content }}</p>
+                        </div>
+                    <a href="#" class="answer">ответить</a>
+                    @include('attachment/layouts/partials/_comment')
+                        @foreach($comment->childs as $com)
+                            <div class="comment-child">
+                                <p style="margin-left: 30px;">{{ $com->admins->name }}</p>
+                                <strong style="margin-left: 30px;">{{ $com->title }}</strong>
+                                <p style="margin-left: 30px;">{{ $com->content }}</p>
+                            </div>
+                        @endforeach
                     @endif
                 @endforeach
         </div>
     </div>
 </div><! --/container -->
-    @include('attachment/layouts/partials/_comment')
+@include('attachment/layouts/partials/_comment-main')
 @endsection
 

@@ -1,17 +1,16 @@
-<div class="container" style="display: none;">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
             {{-- проверка аутентифицированного пользователя --}}
             @if(Auth::guard('admin')->check())
-                {!! Form::open(['route'=>['comment.store',$post->id],'class'=>'form-comment','style'=>'margin-left:30px; width:350px;']) !!}
-                {{ Form::hidden('parent_id', $comment->id,['class'=>'form-control']) }}
+                {!! Form::open(['route'=>['comment.store',$post->id],'class'=>'form-comment','style'=>'margin-left:30px']) !!}
                 {{ Form::label('title', 'Ваше имя') }}
                 {{ Form::text('title', null, array('class' => 'form-control', 'required' => '')) }}
                 {{ Form::label('content', 'Ваш комментарий') }}
                 {{ Form::textarea('content', null, array('class' => 'form-control', 'required' => '')) }}
 
                 <div class="col-md-2">
-                    {{ Form::submit('Ответить', ['class' => 'btn btn-success','style'=>'margin-top:20px'])}}
+                    {{ Form::submit('Создать Комментарий', ['class' => 'btn btn-success','style'=>'margin-top:20px'])}}
                 </div>
 
                 {!! Form::close() !!}

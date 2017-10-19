@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>View Posts</h1>
+                    <h1>View Tag Posts</h1>
                     <a href="{{ action('Admin\PostController@create') }}" class="btn btn-default">Create Post</a>
                 </div>
                 <div class="row">
@@ -20,7 +20,7 @@
                             <th>created at</th>
                             </thead>
                             <tbody>
-                            @foreach($posts as $post)
+                            @foreach($tag->posts as $post)
                                 <tr>
                                     <th>{{ $post->id }}</th>
                                     <td>{{ $post->title }}</td>
@@ -57,9 +57,8 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-offset-5 col-md-6">
-                            {{--вывод пагинации--}}
-                            {{ $posts->links() }}
+                        <div class="img">
+
                         </div>
                     </div>
                 </div>

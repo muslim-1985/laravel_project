@@ -28,6 +28,12 @@ class TagController extends Controller
         return redirect('admin/tag');
     }
 
+    public function TagFilter ($id)
+    {
+        $tag = Tag::find($id);
+        return view('admin.tag.tag-filter',compact('tag'));
+    }
+
     /**
      * Display the specified resource.
      *
