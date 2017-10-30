@@ -136,7 +136,7 @@
             event.preventDefault();
             var target = $(event.target);
             if(target.is(this)) {
-                target.next().slideToggle("slow");
+                target.next('.comment-child').slideToggle("slow");
 
                 //remove default "none" class slideToggle function
 

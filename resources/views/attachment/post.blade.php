@@ -103,7 +103,6 @@
                 @foreach($post->comments as $comment)
                     @if($comment->approved == 1)
                         <div class="comment" style="margin-top: 60px;">
-                            <p>{{ $comment->admins->name }}</p>
                             <strong>{{ $comment->title }}</strong>
                             <p>{{ $comment->content }}</p>
                         </div>
@@ -111,7 +110,6 @@
                     @include('attachment/layouts/partials/_comment')
                         @foreach($comment->childs as $com)
                             <div class="comment-child">
-                                <p style="margin-left: 30px;">{{ $com->admins->name }}</p>
                                 <strong style="margin-left: 30px;">{{ $com->title }}</strong>
                                 <p style="margin-left: 30px;">{{ $com->content }}</p>
                             </div>

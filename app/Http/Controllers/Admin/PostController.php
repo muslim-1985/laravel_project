@@ -12,8 +12,9 @@ class PostController extends Controller
 {
     public function index () {
         //жадная загрузка и пагинация
-        $posts = Post::with('category')->paginate(5);
-
+        $posts = Post::with('category','tags','comments')
+            ->orderBy('created_at','DESC')
+            ->paginate(5);
         return view('admin.post.index', compact('posts'));
     }
 
@@ -138,5 +139,11 @@ class PostController extends Controller
         $post->tags()->detach();
         $post->delete();
         return redirect('admin');
+    }
+
+    public function CommentFilter($id)
+    {
+        $post = Post::find($id);
+        return view('admin.post.comment-filter',compact('post'));
     }
 }

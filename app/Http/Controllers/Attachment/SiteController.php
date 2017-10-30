@@ -21,7 +21,7 @@ class SiteController extends Controller
 
     public function PostShow ($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         return view('attachment.post',compact('post'));
     }
 

@@ -17,6 +17,7 @@
                             <th>tag</th>
                             <th>slug</th>
                             <th>images</th>
+                            <th>comments</th>
                             <th>created at</th>
                             </thead>
                             <tbody>
@@ -43,6 +44,7 @@
                                             <img src="{{asset("images/$image" )}}" alt="No image" style="width: 50px; height: 50px;">
                                         @endforeach
                                     </td>
+                                    <th><a href="{{ route('comment.filter',$post->id) }}">{{ count($post->comments) }}</a></th>
                                     <td>{{ date('M j,Y', strtotime($post->created_at ))}}</td>
                                     <td>
                                         <a href="{{ action('Admin\PostController@edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>

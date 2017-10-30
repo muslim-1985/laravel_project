@@ -32,6 +32,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::delete('/admin/post/{id}','PostController@destroy');
     //Category filter
     Route::get('/admin/post/category/{id}','PostController@CategoryFilter')->name('category.filter');
+    //Comment filter
+    Route::get('/admin/post/{id}/comments','PostController@CommentFilter')->name('comment.filter');
     //Category CRUD routes
     Route::get('/admin/category', 'CategoryController@index');
     Route::get('/admin/category/create', 'CategoryController@create');
@@ -66,7 +68,7 @@ Route::namespace('Attachment')->group(function (){
     //обновление чекбокса публикации комментария
     Route::patch('/admin/comment/{id}/approve','CommentController@ApprovedComment')->name('admin.comment.approved');
     //фильтр комментариев по авторам
-    Route::get('/admin/comment/author/{id}','CommentController@AuthorFilter')->name('comment.admin.filter');
+    Route::get('/admin/comment/author/{author_name}','CommentController@AuthorFilter')->name('comment.admin.filter');
 });
 //кастомная авторизация и аутентификация
 Route::namespace('Auth')->group(function ()

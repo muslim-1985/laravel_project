@@ -18,24 +18,23 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
         //настраиваем guard
     {
-        //cтарый код
-//        if (Auth::guard()->check()) {
-//            return redirect('/home');
-//        }
-
-        switch ($guard) {
-            case 'admin':
-                if(Auth::guard()->check()){
-                    return redirect()->route('home.user');
-                }
-                break;
-            default:
-                if(Auth::guard()->check()){
-                    return redirect('/home');
-                }
-                break;
-
+        if (Auth::guard()->check()) {
+            return redirect('/home');
         }
+
+//        switch ($guard) {
+//            case 'admin':
+//                if(Auth::guard()->check()){
+//                    return redirect()->route('home.user');
+//                }
+//                break;
+//            default:
+//                if(Auth::guard()->check()){
+//                    return redirect('/home');
+//                }
+//                break;
+//
+//        }
 
         return $next($request);
     }

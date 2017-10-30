@@ -13,7 +13,9 @@ class CommentController extends Controller
 {
     public function Index()
     {
-        $comments = Comment::with('admins')->get();
+        $comments = Comment::with('posts')
+            ->orderBy('created_at','DESC')
+            ->paginate(5);
         return view('admin.comment.index',compact('comments'));
     }
 
@@ -23,17 +25,17 @@ class CommentController extends Controller
         $request->validate([
             'title'=>'required|max:255',
             'content'=>'required|min:6',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
         $post = Post::find($post_id);
         $comment = new Comment();
         $comment->title = $request->input('title');
+        $comment->email = $request->input('email');
         $comment->content = $request->input('content');
         $comment->approved = $request->has('approved') ? true : false;
         $comment->parent_id = $request->input('parent_id');
         //привязываем комментарий к текущему посту
         $comment->posts()->associate($post);
-        //связываем текущего авторизированного пользователя (гард 'admin', не забываем) и получаем его id
-        $comment->admins()->associate(\Auth::guard('admin')->id());
         $comment->save();
         \Session::flash('success','Комментарий успешно добавлен');
         return redirect()->route('post.single',$post_id);
@@ -49,9 +51,9 @@ class CommentController extends Controller
         return redirect('admin/comment');
     }
     //фильтрация комментариев по авторам
-    public function AuthorFilter($id)
+    public function AuthorFilter($author_name)
     {
-        $author = Admin::find($id);
+        $author = Comment::where('title',$author_name)->get();
         return view('admin.comment.author-comment',compact('author'));
     }
     /**

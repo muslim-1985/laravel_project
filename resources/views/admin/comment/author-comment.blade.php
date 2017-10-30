@@ -10,19 +10,25 @@
                     <table class="table">
                         <thead>
                             <th>id</th>
-                            <th>title</th>
-                            <th>content</th>
                             <th>author</th>
+                            <th>content</th>
                             <th>created at</th>
                             <th>published</th>
                         </thead>
                         <tbody>
-                            @foreach($author->comments as $comment)
+                            @foreach($author as $comment)
                                 <tr>
                                     <th>{{ $comment->id }}</th>
-                                    <td>{{ $comment->title }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                <small>name:</small>
+                                                <a href="{{ route('comment.admin.filter',$comment->title) }}">{{ $comment->title }}</a>
+                                            </li>
+                                            <li><small>e-mail:</small> {{ $comment->email }}</li>
+                                        </ul>
+                                    </td>
                                     <td>{{ $comment->content }}</td>
-                                    <td>{{ $author->name }}</td>
                                     <td>{{ date('M j,Y', strtotime($comment->created_at ))}}</td>
                                     <td>
                                         @if($comment->approved == 1)

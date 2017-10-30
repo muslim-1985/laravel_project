@@ -33,7 +33,6 @@
                     </ul>
                 </li>
                 <li><a href="{{ action('Admin\TagController@index') }}">Tags</a></li>
-                <li><a href="{{ route('admin.show') }}">Users</a></li>
                 <li><a href="{{ route('admin.comment.index') }}">Comments</a></li>
                 <li><a href="{{ action('Admin\CategoryController@index') }}">Categories</a></li>
             </ul>

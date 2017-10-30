@@ -1,23 +1,27 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            {{-- проверка аутентифицированного пользователя --}}
-            @if(Auth::guard('admin')->check())
+
                 {!! Form::open(['route'=>['comment.store',$post->id],'class'=>'form-comment','style'=>'margin-left:30px']) !!}
+
+            <div class="col-md-6">
                 {{ Form::label('title', 'Ваше имя') }}
                 {{ Form::text('title', null, array('class' => 'form-control', 'required' => '')) }}
+            </div>
+            <div class="col-md-6">
+                {{ Form::label('email', 'Ваш e-mail') }}
+                {{ Form::email('email', null, array('class' => 'form-control', 'required' => '')) }}
+            </div>
                 {{ Form::label('content', 'Ваш комментарий') }}
                 {{ Form::textarea('content', null, array('class' => 'form-control', 'required' => '')) }}
 
+            {!! NoCaptcha::display() !!}
                 <div class="col-md-2">
                     {{ Form::submit('Создать Комментарий', ['class' => 'btn btn-success','style'=>'margin-top:20px'])}}
                 </div>
 
                 {!! Form::close() !!}
-                @else
-                    <h3>комментарии могут оставлять только зарегестрированные пользователи</h3>
-                    <p><a href="{{ action('Auth\AdminController@ShowLoginForm') }}">Войти</a></p>
-                @endif
+
         </div>
     </div>
 </div>

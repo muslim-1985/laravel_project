@@ -18,7 +18,6 @@ class CreatePostsTable extends Migration
             $table->integer('cat_id')->unsigned()->nullable();
             $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('title', 150);
-            $table->string('icon', 70)->nullable();
             $table->string('desc', 250);
             $table->text('content')->nullable();
             $table->text('img')->nullable();

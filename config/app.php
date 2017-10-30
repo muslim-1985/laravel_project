@@ -167,6 +167,8 @@ return [
         //ide helper
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+
         //html helper
         Collective\Html\HtmlServiceProvider::class,
 
@@ -235,6 +237,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
 
     ],
 
