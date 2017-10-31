@@ -23,11 +23,14 @@ class CommentController extends Controller
     public function Store(Request $request, $post_id)
     {
         $request->validate([
-            'title'=>'required|max:255',
-            'content'=>'required|min:6',
-            'g-recaptcha-response' => 'required|captcha',
+            'title' => 'required|max:255',
+            'content' => 'required|min:6',
+            //валидатор проверка капчи
+            'gRecaptcha' => 'required|captcha',
         ]);
-        $post = Post::find($post_id);
+        //проверка на прием данных
+        if ($request->ajax()){
+            $post = Post::find($post_id);
         $comment = new Comment();
         $comment->title = $request->input('title');
         $comment->email = $request->input('email');
@@ -37,8 +40,7 @@ class CommentController extends Controller
         //привязываем комментарий к текущему посту
         $comment->posts()->associate($post);
         $comment->save();
-        \Session::flash('success','Комментарий успешно добавлен');
-        return redirect()->route('post.single',$post_id);
+        }
     }
     // публикация комментария с помощью чекбокса
     public function ApprovedComment (Request $request, $id)

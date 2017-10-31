@@ -1,7 +1,7 @@
 <div class="container comment-child" style="display: none;">
     <div class="row">
         <div class="col-md-12">
-                {!! Form::open(['route'=>['comment.store',$post->id],'class'=>'form-comment','style'=>'margin-left:30px; width:350px;']) !!}
+                {!! Form::open(['route'=>['comment.store',$post->id],'class'=>'form-comment-child','style'=>'margin-left:30px; width:350px;']) !!}
                 {{--формируем скрытое поле для сохранения id родительского для сохранения в поле parent_id --}}
                 {{ Form::hidden('parent_id', $comment->id,['class'=>'form-control']) }}
                 {{ Form::label('title', 'Ваше имя') }}

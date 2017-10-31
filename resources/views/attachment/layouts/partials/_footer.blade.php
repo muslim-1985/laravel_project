@@ -147,3 +147,45 @@
         });
     });
 </script>
+{{--проверка токенов--}}
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+    });
+</script>
+{{--передача данных в контроллер--}}
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $("input[name='_token']").val()
+            }
+        });
+
+            $('.form-comment-parent').submit(function (e) {
+                e.preventDefault();
+                var title = $("input:text.title").val();
+                var email = $("input.email").val();
+                var content = $("textarea.content").val();
+                var gRecaptcha = $("textarea#g-recaptcha-response").val();
+                var token = $("input[name='_token']").val();
+
+                $.ajax({
+                    url: '{{ route('comment.store',$post->id) }}',
+                    type: "POST",
+                    data: {
+                       title: title,
+                       email: email,
+                       content: content,
+                       gRecaptcha: gRecaptcha,
+                    },
+                    success: function (response) {
+                        $('.form-comment-parent')[0].reset();
+                        alert('Ваш комментарий отправлен на рассмотрение модератором');
+                    }
+                });
+            });
+
+    });
+
+</script>
