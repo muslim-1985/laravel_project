@@ -6,11 +6,12 @@
 
             <div class="col-md-6">
                 {{ Form::label('title', 'Ваше имя') }}
-                {{ Form::text('title', null, array('class' => 'title form-control', 'required' => '')) }}
+                {{ Form::text('title', Session::get('name'), array('class' => 'title form-control', 'required' => '')) }}
             </div>
             <div class="col-md-6">
                 {{ Form::label('email', 'Ваш e-mail') }}
-                {{ Form::email('email', null, array('class' => 'email form-control', 'required' => '')) }}
+                {{--выбираем данные из сессии чтобы пользователь не вводил их повторно--}}
+                {{ Form::email('email', Session::get('mail'), array('class' => 'email form-control', 'required' => '')) }}
             </div>
                 {{ Form::label('content', 'Ваш комментарий') }}
                 {{ Form::textarea('content', null, array('class' => 'content form-control', 'required' => '')) }}

@@ -28,7 +28,7 @@ class CommentController extends Controller
             //валидатор проверка капчи
             'gRecaptcha' => 'required|captcha',
         ]);
-        //проверка на прием данных
+        //проверка на прием данных ajax
         if ($request->ajax()){
             $post = Post::find($post_id);
         $comment = new Comment();
@@ -40,6 +40,10 @@ class CommentController extends Controller
         //привязываем комментарий к текущему посту
         $comment->posts()->associate($post);
         $comment->save();
+        //запись данных в сессии для того, чтобы пользователь не вводил данные повторно
+        $request->session()->put('mail',$request->input('email'));
+        $request->session()->put('name',$request->input('title'));
+        $request->session()->save();
         }
     }
     // публикация комментария с помощью чекбокса

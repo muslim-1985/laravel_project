@@ -43,7 +43,6 @@
 
                     <div class="spacing"></div>
 
-
                     <h4>All Tags</h4>
                     <div class="hline"></div>
                     <p>

@@ -130,29 +130,8 @@
         });
     })(jQuery);
 </script>
-<script>
-    $(".answer").each(function () {
-        $(this).click( function (event) {
-            event.preventDefault();
-            var target = $(event.target);
-            if(target.is(this)) {
-                target.next('.comment-child').slideToggle("slow");
 
-                //remove default "none" class slideToggle function
 
-                if($(this).css("display") === 'none'){
-                    $(this).removeAttr('style');
-                }
-            }
-        });
-    });
-</script>
-{{--проверка токенов--}}
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
-    });
-</script>
 {{--передача данных в контроллер--}}
 <script>
     $(document).ready(function () {
@@ -168,7 +147,6 @@
                 var email = $("input.email").val();
                 var content = $("textarea.content").val();
                 var gRecaptcha = $("textarea#g-recaptcha-response").val();
-                var token = $("input[name='_token']").val();
 
                 $.ajax({
                     url: '{{ route('comment.store',$post->id) }}',
@@ -180,7 +158,7 @@
                        gRecaptcha: gRecaptcha,
                     },
                     success: function (response) {
-                        $('.form-comment-parent')[0].reset();
+                        $('textarea.content').val('');
                         alert('Ваш комментарий отправлен на рассмотрение модератором');
                     }
                 });

@@ -106,18 +106,11 @@
                             <strong>{{ $comment->title }}</strong>
                             <p>{{ $comment->content }}</p>
                         </div>
-                    <a href="#" class="answer">ответить</a>
-                    @include('attachment/layouts/partials/_comment')
-                        @foreach($comment->childs as $com)
-                            <div class="comment-child">
-                                <strong style="margin-left: 30px;">{{ $com->title }}</strong>
-                                <p style="margin-left: 30px;">{{ $com->content }}</p>
-                            </div>
-                        @endforeach
                     @endif
                 @endforeach
         </div>
     </div>
+    <h4>Оставить комментарий</h4>
 </div><! --/container -->
 @include('attachment/layouts/partials/_comment-main')
 @endsection
