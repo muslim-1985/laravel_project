@@ -19,6 +19,7 @@
                             <th>images</th>
                             <th>comments</th>
                             <th>created at</th>
+                            <th>updated at</th>
                             </thead>
                             <tbody>
                             @foreach($posts as $post)
@@ -45,7 +46,8 @@
                                         @endforeach
                                     </td>
                                     <th><a href="{{ route('comment.filter',$post->id) }}">{{ count($post->comments) }}</a></th>
-                                    <td>{{ date('M j,Y', strtotime($post->created_at ))}}</td>
+                                    <td>{{ date('F j, Y, g:i a', strtotime($post->created_at ))}}</td>
+                                    <td>{{ date('F j, Y, g:i a', strtotime($post->updated_at ))}}</td>
                                     <td>
                                         <a href="{{ action('Admin\PostController@edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>
                                         {!! Form::open(['method' => 'DELETE','action' => ['Admin\PostController@destroy',$post->id],'style'=>'display:inline']) !!}

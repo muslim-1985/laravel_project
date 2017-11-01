@@ -14,6 +14,7 @@
                             <th>content</th>
                             <th>post name</th>
                             <th>created at</th>
+                            <th>updated at</th>
                             <th>published</th>
                         </thead>
                         <tbody>
@@ -31,7 +32,8 @@
                                     </td>
                                     <td>{{ $comment->content }}</td>
                                     <td>{{ $comment->posts->title }}</td>
-                                    <td>{{ date('M j,Y', strtotime($comment->created_at ))}}</td>
+                                    <td>{{ date('F j, Y, g:i a', strtotime($comment->created_at ))}}</td>
+                                    <td>{{ date('F j, Y, g:i a', strtotime($comment->updated_at ))}}</td>
                                     <td>
                                         @if($comment->approved == 1)
                                             опубликован

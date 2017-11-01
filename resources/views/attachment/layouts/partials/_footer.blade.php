@@ -131,7 +131,7 @@
     })(jQuery);
 </script>
 
-
+@if(!empty($post))
 {{--передача данных в контроллер--}}
 <script>
     $(document).ready(function () {
@@ -167,3 +167,4 @@
     });
 
 </script>
+@endif

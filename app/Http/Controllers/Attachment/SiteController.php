@@ -25,7 +25,9 @@ class SiteController extends Controller
     public function PostShow ($id)
     {
         $post = Post::findOrFail($id);
-        return view('attachment.post',compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('attachment.post',compact('post','categories','tags'));
     }
 
 }
